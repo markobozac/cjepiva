@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy:zip": "npm run build && cd dist && zip -qr ../cijepiva-dist.zip . && cd .. && echo cijepiva-dist.zip"
+    "deploy:zip": "npm run build && cd dist && zip -qr ../cjepiva-dist.zip . && cd .. && echo cjepiva-dist.zip"
   },
   "devDependencies": {
     "@fontsource-variable/fraunces": "^5.3.0",

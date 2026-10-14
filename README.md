@@ -64,8 +64,8 @@ Aplikacija je stvorena kako bi roditelji u manje od 5 sekundi dobili točne, pro
 
 ```bash
 # 1. Kloniranje repozitorija
-git clone https://github.com/markobozac/cijepiva.git
-cd cijepiva
+git clone https://github.com/markobozac/cjepiva.git
+cd cjepiva
 
 # 2. Instalacija ovisnosti
 npm install
@@ -84,12 +84,12 @@ npm run preview
 
 ## 🌐 Objava (Deployment)
 
-Trenutna adresa: **https://markobozac.com/cijepiva/** (privremeno, unutar WordPress stranice na cPanel hostingu).
+Trenutna adresa: **https://markobozac.com/cjepiva/** (privremeno, unutar WordPress stranice na cPanel hostingu).
 
 Build koristi relativne putanje (`base: './'`), pa radi iz bilo koje mape. Javna adresa (canonical, Open Graph slike, `sitemap.xml`, `robots.txt`) postavlja se jednom varijablom:
 
 ```bash
-# zadano: https://markobozac.com/cijepiva/
+# zadano: https://markobozac.com/cjepiva/
 npm run build
 
 # nova domena
@@ -97,12 +97,12 @@ SITE_URL=https://nova-domena.hr/ npm run build
 ```
 
 **Objava na cPanel:**
-1. `npm run deploy:zip` → nastaje `cijepiva-dist.zip`
-2. cPanel → File Manager → `public_html/markobozac/cijepiva/` → Upload → Extract (prepiši postojeće datoteke)
+1. `npm run deploy:zip` → nastaje `cjepiva-dist.zip`
+2. cPanel → File Manager → `public_html/markobozac/cjepiva/` → Upload → Extract (prepiši postojeće datoteke)
 
 `dist/.htaccess` postavlja dugo keširanje za hashirane JS/CSS datoteke i `no-cache` za `index.html`, tako da se nova verzija vidi odmah.
 
-GitHub Actions (`.github/workflows/ci.yml`) na svaki push provjerava build i sprema `dist` kao artefakt.
+**GitHub Pages:** `.github/workflows/deploy.yml` na svaki push na `main` gradi i objavljuje aplikaciju na GitHub Pages (Settings → Pages → Source: *GitHub Actions*). Pull requestovi se samo grade, bez objave.
 
 ---
 

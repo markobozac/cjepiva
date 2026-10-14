@@ -6,7 +6,7 @@ import { defineConfig, loadEnv } from 'vite';
  *
  * Override at build time:  SITE_URL=https://example.hr/ npm run build
  */
-const DEFAULT_SITE_URL = 'https://markobozac.com/cijepiva/';
+const DEFAULT_SITE_URL = 'https://markobozac.com/cjepiva/';
 
 function siteMeta(siteUrl) {
   const today = new Date().toISOString().slice(0, 10);
@@ -45,7 +45,7 @@ export default defineConfig(({ mode }) => {
   if (!siteUrl.endsWith('/')) siteUrl += '/';
 
   return {
-    // Relative asset paths: the build works from any folder (/, /cijepiva/, …).
+    // Relative asset paths: the build works from any folder (/, /cjepiva/, GitHub Pages, …).
     base: './',
     plugins: [siteMeta(siteUrl)],
   };
