@@ -1,4 +1,4 @@
-# Cjepiva.hr – Vodič kroz cijepljenje i kalendar za roditelje
+# Vodič kroz cijepljenje i kalendar za roditelje
 
 > Jednostavna, moderna i empatična web aplikacija koja roditeljima u Hrvatskoj omogućuje transparentan pregled **obveznih** i **preporučenih** cjepiva, uz izračun osobnog kalendara cijepljenja i automatsku pripremu upita za pedijatra.
 
@@ -13,7 +13,7 @@ U Republici Hrvatskoj postoji zakonom propisan **Program obveznog cijepljenja** 
 2. **Nejasnoća oko plaćanja i recepata:** Koja cjepiva pokriva HZZO, koja se kupuju na privatni recept u ljekarni, a koja su preporučena, ali ipak besplatna (npr. HPV)?
 3. **Planiranje i komunikacija s pedijatrom:** Roditelji novorođenčadi i male djece preopterećeni su informacijama i često ne znaju kako točno formulirati upit pedijatrijskoj ordinaciji za naručivanje i nabavku cjepiva.
 
-**Cjepiva.hr** stvorena su kako bi roditelji u manje od 5 sekundi dobili točne, provjerene i vizualno jasne informacije, prilagođene točnoj dobi njihovog djeteta.
+Aplikacija je stvorena kako bi roditelji u manje od 5 sekundi dobili točne, provjerene i vizualno jasne informacije, prilagođene točnoj dobi njihovog djeteta.
 
 ---
 

@@ -49,7 +49,7 @@ export function buildICS(events, calName) {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Cjepiva.hr//Vodic za cijepljenje//HR',
+    'PRODID:-//Vodic za cijepljenje//HR',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     `X-WR-CALNAME:${esc(calName)}`,
@@ -59,7 +59,7 @@ export function buildICS(events, calName) {
     const endExclusive = addDays(e.start, 1);
     lines.push(
       'BEGIN:VEVENT',
-      `UID:${e.uid}@cjepiva.hr`,
+      `UID:${e.uid}@kalendar-cijepljenja`,
       `DTSTAMP:${stamp}`,
       `DTSTART;VALUE=DATE:${icsDate(e.start)}`,
       `DTEND;VALUE=DATE:${icsDate(endExclusive)}`,

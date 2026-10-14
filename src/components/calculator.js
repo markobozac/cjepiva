@@ -80,7 +80,7 @@ function eventPayload(g, childName) {
     ),
     '',
     'Dogovorite točan termin s pedijatrom.',
-    'Cjepiva.hr – informativno, ne zamjenjuje savjet liječnika.',
+    'Vodič za cijepljenje – informativno, ne zamjenjuje savjet liječnika.',
   ];
   return {
     uid: `${toISODate(g.start)}-${g.key.replace(/[^a-z0-9]/gi, '')}`,
