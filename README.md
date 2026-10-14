@@ -40,7 +40,7 @@ Aplikacija je stvorena kako bi roditelji u manje od 5 sekundi dobili točne, pro
 
 - 🔒 **100% privatnost roditelja (Zero Data Collection):**
   - Svi izračuni i podaci (datum rođenja, ime djeteta) obrađuju se **isključivo lokalno u pregledniku**.
-  - Nema prikupljanja osobnih podataka, nema kolačića (cookies), nema analitike niti praćenja.
+  - Nema prikupljanja osobnih podataka, nema kolačića (cookies), nema analitike niti praćenja, nema vanjskih zahtjeva (ni fontova).
 
 - 🌓 **Dizajniran za roditelje:**
   - Umirujuća, nježna paleta boja u skladu s WCAG 2.1 AA kontrastom.
@@ -55,7 +55,8 @@ Aplikacija je stvorena kako bi roditelji u manje od 5 sekundi dobili točne, pro
 - **Stilovi:** Moderni modularni CSS (CSS varijable, clamp tipografija, container queries, CSS grid).
 - **Alat za izgradnju:** [Vite](https://vitejs.dev/)
 - **Kalendar & izvoz:** Custom generator iCalendar RFC 5545 (`.ics`) standarda.
-- **SEO & Meta:** Open Graph protokoli, Twitter Cards, Schema.org JSON-LD (`MedicalWebPage`, `WebApplication`, `FAQPage`), `sitemap.xml` i `robots.txt`.
+- **Fontovi:** lokalno hostani (Fontsource) – bez poziva prema Google Fonts.
+- **SEO & Meta:** Open Graph protokoli, Twitter Cards, Schema.org JSON-LD (`WebSite`, `WebApplication`, `FAQPage`), canonical, generirani `sitemap.xml` i `robots.txt`.
 
 ---
 
@@ -63,8 +64,8 @@ Aplikacija je stvorena kako bi roditelji u manje od 5 sekundi dobili točne, pro
 
 ```bash
 # 1. Kloniranje repozitorija
-git clone https://github.com/<vas-username>/cjepiva-vodic.git
-cd cjepiva-vodic
+git clone https://github.com/markobozac/cijepiva.git
+cd cijepiva
 
 # 2. Instalacija ovisnosti
 npm install
@@ -83,10 +84,25 @@ npm run preview
 
 ## 🌐 Objava (Deployment)
 
-Projekt je konfiguriran s univerzalnim relativnim putanjama (`base: './'` u `vite.config.js`) i sadrži spreman GitHub Actions workflow u `.github/workflows/deploy.yml`.
+Trenutna adresa: **https://markobozac.com/cijepiva/** (privremeno, unutar WordPress stranice na cPanel hostingu).
 
-- **GitHub Pages:** U repozitoriju pod *Settings ➔ Pages ➔ Source* odaberite `GitHub Actions`. Stranica se automatski objavljuje pri svakom `git push` na granu `main`.
-- **Vercel / Netlify / Cloudflare Pages:** Uvezite repozitorij, automatski se prepoznaje `npm run build` i izlazna mapa `dist`.
+Build koristi relativne putanje (`base: './'`), pa radi iz bilo koje mape. Javna adresa (canonical, Open Graph slike, `sitemap.xml`, `robots.txt`) postavlja se jednom varijablom:
+
+```bash
+# zadano: https://markobozac.com/cijepiva/
+npm run build
+
+# nova domena
+SITE_URL=https://nova-domena.hr/ npm run build
+```
+
+**Objava na cPanel:**
+1. `npm run deploy:zip` → nastaje `cijepiva-dist.zip`
+2. cPanel → File Manager → `public_html/markobozac/cijepiva/` → Upload → Extract (prepiši postojeće datoteke)
+
+`dist/.htaccess` postavlja dugo keširanje za hashirane JS/CSS datoteke i `no-cache` za `index.html`, tako da se nova verzija vidi odmah.
+
+GitHub Actions (`.github/workflows/ci.yml`) na svaki push provjerava build i sprema `dist` kao artefakt.
 
 ---
 

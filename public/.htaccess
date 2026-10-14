@@ -1,0 +1,16 @@
+# Static app inside the WordPress site: serve files directly.
+DirectoryIndex index.html
+Options -Indexes
+
+<IfModule mod_headers.c>
+  # Hashed build files never change -> cache for a year
+  <FilesMatch "\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # index.html always revalidated so new deploys show up immediately
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

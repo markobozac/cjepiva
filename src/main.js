@@ -6,6 +6,12 @@
  * - Sticky header observer
  * - Mount filters, search, cards, calculator, FAQ
  */
+// Self-hosted fonts (no requests to Google = no visitor data leaves the site)
+import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource/nunito/400.css';
+import '@fontsource/nunito/600.css';
+import '@fontsource/nunito/700.css';
+import '@fontsource/nunito/800.css';
 import './styles/index.css';
 import './styles/calculator.css';
 import vaccinesData from './data/vaccines.json';

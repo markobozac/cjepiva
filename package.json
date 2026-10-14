@@ -1,14 +1,20 @@
 {
   "name": "cjepiva-vodic",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:zip": "npm run build && cd dist && zip -qr ../cijepiva-dist.zip . && cd .. && echo cijepiva-dist.zip"
   },
   "devDependencies": {
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource/nunito": "^5.3.0",
     "vite": "^6.3.5"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
