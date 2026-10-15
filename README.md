@@ -86,7 +86,7 @@ npm run preview
 
 ## 🌐 Objava (Deployment)
 
-Trenutna adresa: **https://markobozac.com/cjepiva/** (privremeno, unutar WordPress stranice na cPanel hostingu).
+Glavna adresa: **https://markobozac.com/cjepiva/** (statična mapa unutar WordPress stranice na cPanel hostingu). Kopija na GitHub Pages ima canonical na glavnu adresu.
 
 Build koristi relativne putanje (`base: './'`), pa radi iz bilo koje mape. Javna adresa (canonical, Open Graph slike, `sitemap.xml`, `robots.txt`) postavlja se jednom varijablom:
 

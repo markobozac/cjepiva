@@ -34,11 +34,10 @@ jobs:
 
       - run: npm ci
 
+      # Canonical / OG URLs always point at the main site (markobozac.com/cjepiva,
+      # see vite.config.js), so the Pages copy never competes with it in search.
       - name: Build
         run: npm run build
-        env:
-          # Canonical / OG URLs point at the Pages address for this build
-          SITE_URL: ${{ steps.pages.outputs.base_url && format('{0}/', steps.pages.outputs.base_url) || '' }}
 
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
