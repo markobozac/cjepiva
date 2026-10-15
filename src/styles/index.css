@@ -1296,6 +1296,13 @@ button {
   color: var(--text-muted);
 }
 
+.footer-mail {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.footer-mail:hover { color: var(--primary); }
+
 /* ---------- Motion ---------- */
 @keyframes rise {
   from {
