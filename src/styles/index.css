@@ -1315,3 +1315,57 @@ button {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   Consent banner (Google Analytics)
+   ========================================================================== */
+.consent-banner {
+  position: fixed;
+  z-index: 100;
+  inset-inline: 16px;
+  bottom: 16px;
+  max-width: 720px;
+  margin-inline: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding: 16px 20px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  animation: consent-in 0.35s ease-out;
+}
+.consent-text {
+  flex: 1 1 320px;
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.consent-text strong { color: var(--text); }
+.consent-actions {
+  display: flex;
+  gap: 8px;
+  margin-inline-start: auto;
+}
+@keyframes consent-in {
+  from { opacity: 0; translate: 0 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .consent-banner { animation: none; }
+}
+@media print {
+  .consent-banner { display: none !important; }
+}
+.footer-consent-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}

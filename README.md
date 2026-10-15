@@ -38,9 +38,10 @@ Aplikacija je stvorena kako bi roditelji u manje od 5 sekundi dobili točne, pro
   - Tekst se ažurira u realnom vremenu ovisno o označenim cjepivima.
   - Sadrži gumbe za brzo kopiranje u međuspremnik i direktno otvaranje u e-mail klijentu (`mailto:`).
 
-- 🔒 **100% privatnost roditelja (Zero Data Collection):**
+- 🔒 **Privatnost roditelja:**
   - Svi izračuni i podaci (datum rođenja, ime djeteta) obrađuju se **isključivo lokalno u pregledniku**.
-  - Nema prikupljanja osobnih podataka, nema kolačića (cookies), nema analitike niti praćenja, nema vanjskih zahtjeva (ni fontova).
+  - Nema prikupljanja osobnih podataka. Google Analytics učitava se **tek nakon privole** posjetitelja (traka za privolu, „Postavke kolačića” u podnožju); bez privole nema kolačića ni vanjskih zahtjeva (fontovi su lokalni).
+  - U analitiku nikad ne odlaze datum rođenja, ime djeteta ni tekst e-maila – samo anonimni parametri (npr. ID cjepiva, dobna skupina).
 
 - 🌓 **Dizajniran za roditelje:**
   - Umirujuća, nježna paleta boja u skladu s WCAG 2.1 AA kontrastom.
@@ -55,6 +56,7 @@ Aplikacija je stvorena kako bi roditelji u manje od 5 sekundi dobili točne, pro
 - **Stilovi:** Moderni modularni CSS (CSS varijable, clamp tipografija, container queries, CSS grid).
 - **Alat za izgradnju:** [Vite](https://vitejs.dev/)
 - **Kalendar & izvoz:** Custom generator iCalendar RFC 5545 (`.ics`) standarda.
+- **Analitika:** Google Analytics 4 uz privolu (`src/lib/analytics.js`), Measurement ID u `.env` (`VITE_GA_ID`). Popis događaja u [`docs/analytics.md`](docs/analytics.md).
 - **Fontovi:** lokalno hostani (Fontsource) – bez poziva prema Google Fonts.
 - **SEO & Meta:** Open Graph protokoli, Twitter Cards, Schema.org JSON-LD (`WebSite`, `WebApplication`, `FAQPage`), canonical, generirani `sitemap.xml` i `robots.txt`.
 

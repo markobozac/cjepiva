@@ -17,6 +17,7 @@ import {
 } from '../lib/dates.js';
 import { buildSchedule } from '../lib/schedule.js';
 import { buildICS, downloadFile, googleCalendarUrl } from '../lib/ics.js';
+import { track, ageBucket } from '../lib/analytics.js';
 import { escapeHtml, $ } from '../lib/utils.js';
 
 const MONTHS_SHORT = ['sij', 'velj', 'ožu', 'tra', 'svi', 'lip', 'srp', 'kol', 'ruj', 'lis', 'stu', 'pro'];
@@ -323,6 +324,25 @@ export function initCalculator(root, vaccines) {
     return msg ? null : birth;
   }
 
+  // Analytics: one event per distinct (date, scope) once the visitor stops editing.
+  // Only an age bucket is sent – never the birth date or the child's name.
+  let scheduleTimer;
+  let lastReported = '';
+  function reportSchedule(birth, scope, groups) {
+    clearTimeout(scheduleTimer);
+    const key = `${birthInput.value}|${scope}`;
+    if (key === lastReported) return;
+    scheduleTimer = setTimeout(() => {
+      lastReported = key;
+      track('schedule_created', {
+        schedule_scope: scope,
+        child_age_group: ageBucket(birth),
+        upcoming_count: groups.filter((g) => g.status !== 'past').length,
+        has_child_name: Boolean(nameInput.value.trim()),
+      });
+    }, 1500);
+  }
+
   function renderEmpty() {
     result.innerHTML = `
       <div class="plan-empty">
@@ -370,6 +390,7 @@ export function initCalculator(root, vaccines) {
       .map((item) => ({ ...item.vaccine, eligibilityNote: item.reason }));
 
     state = { ...state, groups, birth, childName };
+    reportSchedule(birth, currentScope, groups);
 
     const notes = vaccines.filter(
       (v) => v.calendar_note && (v.category === 'obvezno' || activeExtras.has(v.id))
@@ -570,6 +591,7 @@ export function initCalculator(root, vaccines) {
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-|-$/g, '');
     downloadFile(buildICS(events, calName), `kalendar-cijepljenja-${slug || 'dijete'}.ics`);
+    track('calendar_export', { method: 'ics', event_count: events.length });
   }
 
   function printPlan() {
@@ -579,6 +601,7 @@ export function initCalculator(root, vaccines) {
       window.removeEventListener('afterprint', cleanup);
     };
     window.addEventListener('afterprint', cleanup);
+    track('print_schedule', { event_count: state.groups.filter((g) => g.status !== 'past').length });
     window.print();
   }
 
@@ -588,19 +611,27 @@ export function initCalculator(root, vaccines) {
     if (state.groups.length) result.focus({ preventScroll: false });
   });
   form.addEventListener('input', render);
-  form.addEventListener('change', render);
+  form.addEventListener('change', (e) => {
+    if (e.target.name === 'schedule-scope') track('schedule_scope_change', { schedule_scope: e.target.value });
+    render();
+  });
 
 
 
   result.addEventListener('click', async (e) => {
     if (e.target.closest('#export-ics')) exportICS();
     if (e.target.closest('#print-plan')) printPlan();
+    if (e.target.closest('.plan-gcal')) track('calendar_export', { method: 'google', event_count: 1 });
+    if (e.target.closest('#open-email-client')) {
+      track('email_to_pediatrician', { method: 'mailto', vaccine_count: state.selectedAgeVaccines?.size || 0 });
+    }
 
     const copyBtn = e.target.closest('#copy-email-btn');
     if (copyBtn && state.currentEmailDraft) {
       const draft = state.currentEmailDraft;
       try {
         await navigator.clipboard.writeText(`Predmet: ${draft.subject}\n\n${draft.body}`);
+        track('email_to_pediatrician', { method: 'copy', vaccine_count: state.selectedAgeVaccines?.size || 0 });
         const fb = $('#email-copy-feedback', result);
         if (fb) {
           fb.hidden = false;
@@ -626,6 +657,7 @@ export function initCalculator(root, vaccines) {
     if (e.target.matches('.age-vax-input')) {
       const val = e.target.value;
       if (!state.selectedAgeVaccines) state.selectedAgeVaccines = new Set();
+      track('vaccine_interest_toggle', { vaccine_id: val, checked: e.target.checked });
       if (e.target.checked) {
         state.selectedAgeVaccines.add(val);
       } else {

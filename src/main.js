@@ -30,6 +30,7 @@ import { initTypeFilter, initAgeFilter } from './components/filters.js';
 import { initSearch } from './components/search.js';
 import { initCalculator } from './components/calculator.js';
 import { renderFaq } from './components/faq.js';
+import { initAnalytics, track } from './lib/analytics.js';
 
 // Pre-compute normalized search corpus on each vaccine
 const vaccines = vaccinesData.map((v) => {
@@ -94,6 +95,7 @@ if (quickAgeRoot) {
     const btn = e.target.closest('[data-quick-age]');
     if (btn) {
       setAge(btn.dataset.quickAge);
+      track('filter_age', { age_group: btn.dataset.quickAge, source: 'hero' });
       $('#cjepiva')?.scrollIntoView({ behavior: 'smooth' });
     }
   });
@@ -109,6 +111,7 @@ if (suggestionsEl) {
     const btn = e.target.closest('[data-suggest]');
     if (btn) {
       searchComponent.setQuery(btn.dataset.suggest);
+      track('search', { search_term: btn.dataset.suggest.toLowerCase(), source: 'suggestion' });
     }
   });
 }
@@ -116,19 +119,35 @@ if (suggestionsEl) {
 // 4. Mount Filters and Search
 const typeComponent = initTypeFilter($('#type-filter'), (newType) => {
   state.type = newType;
+  track('filter_type', { vaccine_type: newType });
   updateUrl();
   render();
 });
 
 const ageComponent = initAgeFilter($('#age-filter'), vaccines, (newAge) => {
   state.age = newAge;
+  track('filter_age', { age_group: newAge, source: 'timeline' });
   updateUrl();
   render();
 });
 
+// Report a search once the visitor stops typing (not every keystroke).
+let searchTimer;
+function trackSearch(raw) {
+  clearTimeout(searchTimer);
+  const term = raw.trim().toLowerCase().slice(0, 50);
+  if (term.length < 2) return;
+  searchTimer = setTimeout(() => {
+    const results = getFiltered().length;
+    track('search', { search_term: term, source: 'input', result_count: results });
+    if (!results) track('search_no_results', { search_term: term });
+  }, 1200);
+}
+
 const searchComponent = initSearch($('#cjepiva'), ({ raw, tokens }) => {
   state.query = raw;
   state.tokens = tokens;
+  if (document.activeElement?.id === 'search-input') trackSearch(raw);
   updateUrl();
   render();
 });
@@ -149,7 +168,19 @@ function resetAllFilters() {
   render();
 }
 
-resetBtn?.addEventListener('click', resetAllFilters);
+resetBtn?.addEventListener('click', () => {
+  resetAllFilters();
+  track('reset_filters');
+});
+
+// Vaccine card "Detalji i raspored" opened (click on summary; details still closed at this point)
+cardGrid.addEventListener('click', (e) => {
+  const summary = e.target.closest('.card-details > summary');
+  const card = summary?.closest('.card');
+  if (!summary || !card || summary.parentElement.open) return;
+  const v = vaccines.find((x) => `cjepivo-${x.id}` === card.id);
+  if (v) track('vaccine_details_open', { vaccine_id: v.id, vaccine_category: v.category });
+});
 
 // 5. URL Query Sync (?vrsta=obvezno&dob=2m&q=rotarix)
 function readUrl() {
@@ -282,6 +313,12 @@ if (plannerRoot) {
 
 // 9. Mount FAQ & Footer info
 renderFaq($('#faq-list'), faqData);
+$('#faq-list')?.addEventListener('click', (e) => {
+  const summary = e.target.closest('.faq-item > summary');
+  if (summary && !summary.parentElement.open) {
+    track('faq_open', { faq_id: summary.parentElement.id.replace(/^faq-/, '') });
+  }
+});
 
 const yearEl = $('#year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -290,6 +327,7 @@ const lastRevEl = $('#last-reviewed');
 if (lastRevEl) lastRevEl.textContent = 'listopad 2026. (HZJZ program)';
 
 // 10. Initialise
+initAnalytics($('#consent-settings'));
 readUrl();
 if (state.query) {
   searchComponent.setQuery(state.query);
