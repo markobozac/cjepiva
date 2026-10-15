@@ -66,15 +66,21 @@ function loadGa() {
   document.head.append(s);
 }
 
+/**
+ * Remove this app's GA cookies. The shared `_ga` cookie is only removed when no
+ * other GA property on the same domain uses it (e.g. the host WordPress site).
+ */
 function clearGaCookies() {
   const host = location.hostname;
   const domains = ['', host, `.${host}`, `.${host.split('.').slice(-2).join('.')}`];
-  for (const c of document.cookie.split(';')) {
-    const name = c.split('=')[0].trim();
-    if (name === '_ga' || name.startsWith('_ga_')) {
-      for (const d of domains) {
-        document.cookie = `${name}=; Max-Age=0; path=/${d ? `; domain=${d}` : ''}`;
-      }
+  const names = document.cookie.split(';').map((c) => c.split('=')[0].trim());
+  const own = `_ga_${GA_ID.replace(/^G-/, '')}`;
+  const others = names.filter((n) => n.startsWith('_ga_') && n !== own);
+  const remove = [own, ...(others.length ? [] : ['_ga'])];
+  for (const name of remove) {
+    if (!names.includes(name)) continue;
+    for (const d of domains) {
+      document.cookie = `${name}=; Max-Age=0; path=/${d ? `; domain=${d}` : ''}`;
     }
   }
 }

@@ -5,7 +5,11 @@ Google signals i ad_* signali su uvijek isključeni.
 
 **Nikad se ne šalje:** datum rođenja, ime djeteta, tekst e-maila. Dob djeteta šalje se samo kao skupina (`child_age_group`).
 
-Measurement ID: `.env` → `VITE_GA_ID`. Prazno = analitika isključena.
+Measurement ID: `.env` → `VITE_GA_ID` (trenutno `G-DEWGTCSP30`). Prazno = analitika isključena.
+
+GA property: **„Vodič za cijepljenje (cjepiva)”** u računu „Osobni projekti” (property 559078232, web stream 16133017846, Europe/Zagreb, EUR, kategorija Health).
+Enhanced measurement: page views (samo učitavanja – *ne* promjene URL-a, jer aplikacija mijenja URL pri svakom filtru), scroll, outbound clicks, file downloads, video. Site search i form interactions su isključeni (pretraga se šalje kao vlastiti `search` događaj).
+Povlačenje privole briše samo kolačić ove aplikacije (`_ga_DEWGTCSP30`); zajednički `_ga` ostaje ako ga koristi i WordPress stranica na istoj domeni.
 
 ## Događaji
 
