@@ -541,14 +541,17 @@ button {
 .search-icon {
   position: absolute;
   left: 1rem;
-  top: 50%;
+  /* Centre on the 52px input itself, not on the wrapper (whose height can
+     differ between browsers, e.g. iOS Safari). */
+  top: 26px;
   translate: 0 -50%;
   color: var(--text-muted);
   pointer-events: none;
 }
 .search input {
+  display: block;
   width: 100%;
-  min-height: 52px;
+  height: 52px;
   padding: 0.75rem 3rem 0.75rem 2.9rem;
   font: inherit;
   color: var(--text);
@@ -577,7 +580,7 @@ button {
 .search-clear {
   position: absolute;
   right: 0.45rem;
-  top: 50%;
+  top: 26px;
   translate: 0 -50%;
   display: grid;
   place-items: center;
@@ -587,6 +590,9 @@ button {
   border-radius: 50%;
   background: transparent;
   color: var(--text-muted);
+}
+.search-clear[hidden] {
+  display: none;
 }
 .search-clear:hover {
   background: var(--primary-soft);
@@ -646,7 +652,9 @@ button {
     align-items: stretch;
   }
   .search {
-    flex: 1 1 100%;
+    /* Column flex: a percentage basis would become the HEIGHT in Safari
+       (icons ended up below the field). Size to content instead. */
+    flex: 0 0 auto;
     width: 100%;
   }
   .segmented {
