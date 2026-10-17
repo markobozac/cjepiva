@@ -114,6 +114,8 @@ function getEligibleVaccinesForAge(birth, vaccines, scope = 'sve') {
     const pcv = findVax('pneumokok-obvezno');
     if (pcv) list.push({ vaccine: pcv, reason: 'S navršena 2 mjeseca (1. doza)', defaultChecked: true });
     if (scope !== 'obvezna') {
+      const rsv = findVax('rsv');
+      if (rsv) list.push({ vaccine: rsv, reason: 'Besplatna RSV zaštita (u rodilištu ili na jesen prije prve sezone)', defaultChecked: true });
       const rota = findVax('rotavirus');
       if (rota) list.push({ vaccine: rota, reason: 'Od 6 tjedana do najkasnije 6–8 mjeseci', defaultChecked: true });
       const bex = findVax('bexsero');
@@ -147,7 +149,7 @@ function getEligibleVaccinesForAge(birth, vaccines, scope = 'sve') {
   }
 
   if (months >= 60 && months <= 84) {
-    const diTe = findVax('diteper-predskola');
+    const diTe = findVax('dtap-ipv-predskolsko');
     if (diTe) list.push({ vaccine: diTe, reason: 'Predškolsko cijepljenje (5–6 godina)', defaultChecked: true });
   }
 
@@ -158,8 +160,30 @@ function getEligibleVaccinesForAge(birth, vaccines, scope = 'sve') {
     }
   }
 
+  // School boosters (dTap): 4th grade primary (~9–11 y) and 2nd grade secondary (~15–17 y)
+  const dtap = findVax('skolsko-docjepljivanje');
+  if (dtap && months >= 108 && months < 132) {
+    list.push({ vaccine: dtap, reason: 'Docjepljivanje dTap u 4. razredu osnovne škole', defaultChecked: true });
+  } else if (dtap && months >= 180 && months < 204) {
+    list.push({ vaccine: dtap, reason: 'Docjepljivanje dTap u 2. razredu srednje škole', defaultChecked: true });
+  }
+
   // 2. Optional / Recommended vaccines
   if (scope !== 'obvezna') {
+    // RSV – free for infants entering their first RSV season (born since 1 April before the current/next season)
+    const now = today();
+    const seasonYear = now.getMonth() >= 3 ? now.getFullYear() : now.getFullYear() - 1;
+    if (birth >= new Date(seasonYear, 3, 1)) {
+      const rsv = findVax('rsv');
+      if (rsv) {
+        list.push({
+          vaccine: rsv,
+          reason: 'Besplatno za bebe pred prvom RSV sezonom (pitajte pedijatra)',
+          defaultChecked: true,
+        });
+      }
+    }
+
     // Vodene kozice (od 12 mjeseci naviše)
     if (months >= 12) {
       const vari = findVax('varicella');

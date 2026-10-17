@@ -13,7 +13,7 @@
     "cost_info": "Besplatno (obvezni program, HZZO)",
     "notes": "Na mjestu uboda nakon nekoliko tjedana obično nastane mali čvorić ili ožiljak. To je očekivana reakcija.",
     "keywords": ["tbc", "tuberkuloza", "rodiliste", "bcg"],
-    "source": "HZJZ – Provedbeni program obveznog cijepljenja",
+    "source": "Ministarstvo zdravstva – Trogodišnji program obveznog cijepljenja 2025.–2027.",
     "last_reviewed": "2026-10"
   },
   {
@@ -31,12 +31,12 @@
     "cost_info": "Besplatno (obvezni program, HZZO)",
     "notes": "Odnosi se samo na djecu majki zaraženih hepatitisom B. Sva ostala djeca zaštitu dobivaju kroz cjepivo „6 u 1“.",
     "keywords": ["hepatitis", "jetra", "hbsag", "imunoglobulin", "zutica"],
-    "source": "HZJZ – Provedbeni program obveznog cijepljenja",
+    "source": "Ministarstvo zdravstva – Trogodišnji program obveznog cijepljenja 2025.–2027.",
     "last_reviewed": "2026-10"
   },
   {
     "id": "heksavalentno",
-    "name": "6 u 1",
+    "name": "6 u 1 (i 5 u 1)",
     "brands": "Hexacima / Infanrix hexa",
     "short_label": "DTaP-IPV-Hib-HepB",
     "disease": "Difterija, tetanus, hripavac, dječja paraliza, Hib, hepatitis B",
@@ -44,17 +44,17 @@
     "age_groups": ["2m", "4m", "6m", "12m"],
     "age_label": "2., 4. i 6. mjesec + docjepljivanje u 2. godini",
     "schedule": [
-      { "label": "1. doza", "at": "2m" },
-      { "label": "2. doza", "at": "4m" },
-      { "label": "3. doza", "at": "6m" },
-      { "label": "Docjepljivanje", "at": "12m", "to": "18m", "type": "window", "hint": "6–12 mjeseci nakon 3. doze" }
+      { "label": "1. doza (6 u 1)", "at": "2m" },
+      { "label": "2. doza (6 u 1 ili 5 u 1)", "at": "4m" },
+      { "label": "3. doza (5 u 1 ili 6 u 1)", "at": "6m", "hint": "U prvoj godini: dvije doze 6 u 1 i jedna 5 u 1" },
+      { "label": "Docjepljivanje (6 u 1)", "at": "12m", "to": "18m", "type": "window", "hint": "6–12 mjeseci nakon 3. doze" }
     ],
-    "doses": "3 doze osnovnog cijepljenja (razmak min. 4 tjedna) + docjepljivanje 6–12 mjeseci nakon 3. doze.",
+    "doses": "3 doze u prvoj godini: dvije doze „6 u 1” i jedna „5 u 1” (DTaP-IPV-Hib, bez hepatitisa B) u 4. ili 6. mjesecu. Docjepljivanje „6 u 1” u 2. godini, 6–12 mjeseci nakon 3. doze.",
     "description": "Jedan ubod štiti od šest teških zaraznih bolesti, uključujući hripavac, koji je za dojenčad posebno opasan.",
     "cost_info": "Besplatno (obvezni program, HZZO)",
     "notes": "Prima se kod pedijatra, obično na istom pregledu kad i cjepivo protiv pneumokoka.",
-    "keywords": ["sesterovalentno", "heksa", "hexa", "difterija", "tetanus", "hripavac", "pertusis", "kasalj", "polio", "djecja paraliza", "hib", "hepatitis b", "di-te-per"],
-    "source": "HZJZ – Provedbeni program obveznog cijepljenja",
+    "keywords": ["5 u 1", "di-te-per", "difterija", "djecja paraliza", "heksa", "hepatitis b", "hexa", "hib", "hripavac", "kasalj", "penta", "pentavalentno", "pertusis", "polio", "sesterovalentno", "tetanus"],
+    "source": "Ministarstvo zdravstva – Trogodišnji program obveznog cijepljenja 2025.–2027.",
     "last_reviewed": "2026-10"
   },
   {
@@ -74,9 +74,9 @@
     "doses": "2 doze (razmak min. 8 tjedana) + docjepljivanje s navršenih 12 mjeseci.",
     "description": "Štiti od bakterije Streptococcus pneumoniae, čestog uzročnika teških upala pluća, meningitisa i upala srednjeg uha u male djece.",
     "cost_info": "Besplatno (obvezni program, HZZO)",
-    "notes": "Ovo je redovno, obvezno cjepivo. Za cjepiva šireg obuhvata pogledajte karticu „Pneumokok – proširena zaštita“.",
+    "notes": "Nedonoščad rođena od 26. do 36. tjedna trudnoće cijepi se po shemi 3+1 (tri doze od 2. mjeseca i četvrta s 12 mjeseci). Za cjepiva šireg obuhvata pogledajte karticu „Pneumokok – proširena zaštita“.",
     "keywords": ["pneumokok", "pcv", "synflorix", "prevenar", "upala pluca", "meningitis", "upala uha"],
-    "source": "HZJZ – Provedbeni program obveznog cijepljenja",
+    "source": "Ministarstvo zdravstva – Trogodišnji program obveznog cijepljenja 2025.–2027.",
     "last_reviewed": "2026-10"
   },
   {
@@ -97,7 +97,7 @@
     "cost_info": "Besplatno (obvezni program, HZZO)",
     "notes": "Blaga temperatura ili osip 7–12 dana nakon cijepljenja česta su i prolazna reakcija.",
     "keywords": ["mpr", "mopary", "mo-pa-ru", "ospice", "morbili", "zausnjaci", "rubeola", "priorix", "mmr"],
-    "source": "HZJZ – Provedbeni program obveznog cijepljenja",
+    "source": "Ministarstvo zdravstva – Trogodišnji program obveznog cijepljenja 2025.–2027.",
     "last_reviewed": "2026-10"
   },
   {
@@ -112,28 +112,48 @@
     "doses": "1 doza (docjepljivanje).",
     "description": "Obnavlja zaštitu stečenu u dojenačkoj dobi prije polaska u školu, kad se dijete više druži s drugom djecom.",
     "cost_info": "Besplatno (obvezni program, HZZO)",
-    "notes": "Ako dijete nije docijepljeno s 5 godina, nadoknađuje se pri upisu u 1. razred.",
+    "notes": "Ako dijete nije docijepljeno s 5 godina, nadoknađuje se pri upisu u 1. razred. Djeca koja u školskoj godini 2025./2026. krenu u 1. razred, a nisu docijepljena s 5 godina, primaju i dozu protiv dječje paralize (IPV).",
     "keywords": ["di-te-per", "difterija", "tetanus", "hripavac", "polio", "djecja paraliza", "docjepljivanje", "5 godina", "vrtic"],
-    "source": "HZJZ – Provedbeni program obveznog cijepljenja",
+    "source": "Ministarstvo zdravstva – Trogodišnji program obveznog cijepljenja 2025.–2027.",
     "last_reviewed": "2026-10"
   },
   {
     "id": "skolsko-docjepljivanje",
-    "name": "Školsko docjepljivanje (dTap)",
+    "name": "Školska docjepljivanja (dTap)",
     "short_label": "Difterija, tetanus, hripavac",
     "disease": "Difterija, tetanus, hripavac",
     "category": "obvezno",
     "age_groups": ["skolska"],
-    "age_label": "Osnovna škola (razred prema aktualnom programu)",
+    "age_label": "4. razred osnovne i 2. razred srednje škole",
     "schedule": [
-      { "label": "Docjepljivanje (školska medicina)", "at": "10y", "to": "14y", "type": "approx", "hint": "Točan razred javlja školska medicina" }
+      { "label": "Docjepljivanje dTap – 4. razred OŠ", "at": "10y", "type": "approx", "hint": "Provodi školska medicina" },
+      { "label": "Docjepljivanje dTap – 2. razred SŠ", "at": "16y", "type": "approx", "hint": "Provodi školska medicina" }
     ],
-    "doses": "1 doza docjepljivanja kod školskog liječnika, uz provjeru i nadoknadu propuštenih cijepljenja.",
+    "doses": "2 doze dTap: u 4. razredu osnovne i u 2. razredu srednje škole. Tko je propustio dozu u 4. razredu, a od zadnjeg docjepljivanja je prošlo više od 5 godina, cijepi se u 2. razredu SŠ.",
     "description": "Održava zaštitu od tetanusa, difterije i hripavca u školskoj dobi i kasnije.",
     "cost_info": "Besplatno (obvezni program, HZZO)",
-    "notes": "U koji se razred docjepljuje propisuje godišnji Provedbeni program. Provjerite sa službom školske medicine.",
+    "notes": "Uvedeno od školske godine 2025./2026. zbog porasta hripavca. U 8. razredu školski liječnik provjerava i cijepljenje protiv hepatitisa B te ga nadoknađuje ako nedostaje (shema 0, 1, 6 mjeseci).",
     "keywords": ["dtap", "td", "tetanus", "difterija", "hripavac", "skola", "skolska medicina", "boostrix"],
-    "source": "HZJZ – Provedbeni program obveznog cijepljenja",
+    "source": "Ministarstvo zdravstva – Trogodišnji program obveznog cijepljenja 2025.–2027.",
+    "last_reviewed": "2026-10"
+  },
+  {
+    "id": "rsv",
+    "name": "RSV zaštita novorođenčadi",
+    "short_label": "RSV (monoklonsko protutijelo)",
+    "disease": "RSV infekcija (bronhiolitis, upala pluća)",
+    "category": "preporuceno_besplatno",
+    "age_groups": ["rodenje"],
+    "age_label": "Pri rođenju ili na jesen prije prve RSV sezone",
+    "schedule": [
+      { "label": "1 doza za prvu RSV sezonu", "at": "0d", "type": "approx", "season": "rsv", "from": "2026-10-01", "hint": "Rođeni u sezoni (listopad–ožujak) primaju je u rodilištu, ostali na jesen prije sezone, prema uputi HZJZ-a" }
+    ],
+    "doses": "1 doza dugodjelujućeg monoklonskog protutijela, koja štiti cijelu RSV sezonu. Zamjenjuje raniji palivizumab, koji se davao u više doza.",
+    "description": "Štiti bebe od RSV-a, najčešćeg uzroka bronhiolitisa i bolničkog liječenja dojenčadi u prvoj zimi. Ne radi se o klasičnom cjepivu, nego o gotovim protutijelima.",
+    "cost_info": "Besplatno (HZZO) za novorođenčad koja ulaze u prvu RSV sezonu, od jeseni 2026.",
+    "notes": "Ministarstvo cijepljenje protiv RSV-a preporučuje i trudnicama, da beba bude zaštićena u prvim mjesecima. Dogovorite se s ginekologom i pedijatrom.",
+    "keywords": ["rsv", "respiratorni sincicijski virus", "bronhiolitis", "monoklonsko protutijelo", "protutijela", "palivizumab", "trudnice"],
+    "source": "Ministarstvo zdravstva – Proširenje programa imunizacije (22. 9. 2026.)",
     "last_reviewed": "2026-10"
   },
   {
@@ -173,7 +193,7 @@
     "doses": "Rotarix: 2 doze kapima na usta (razmak min. 4 tjedna, završiti do 24. tjedna). RotaTeq: 3 doze (završiti do 32. tjedna).",
     "description": "Oralno cjepivo (kapi na usta, bez uboda) koje štiti od teškog proljeva i dehidracije, najčešćeg razloga bolničkog liječenja dojenčadi.",
     "cost_info": "Uz nadoplatu roditelja (po preporuci pedijatra)",
-    "notes": "Važno: postoji gornja dobna granica za početak i završetak cijepljenja, zato prvu dozu nemojte odgađati.",
+    "notes": "Važno: postoji gornja dobna granica za početak i završetak cijepljenja, zato prvu dozu nemojte odgađati. Ministarstvo je najavilo da od 2027. ulazi na popis preporučenih cijepljenja; uvjeti i trošak još nisu objavljeni.",
     "keywords": ["rota", "rotavirus", "rotarix", "rotateq", "proljev", "povracanje", "crijevna viroza", "dehidracija", "kapi"],
     "source": "HZJZ / sažetak opisa svojstava lijeka (HALMED)",
     "last_reviewed": "2026-10"
@@ -192,7 +212,7 @@
     "doses": "Shema prema dobi i prethodnom cijepljenju. Određuje je pedijatar.",
     "description": "Konjugirana cjepiva koja pokrivaju 15 ili 20 tipova pneumokoka, odnosno više tipova od cjepiva iz redovnog programa.",
     "cost_info": "Uz nadoplatu roditelja (na recept pedijatra)",
-    "notes": "Dijete ne prima dvije pneumokokne sheme istodobno. Kombinaciju i raspored uvijek dogovorite s pedijatrom.",
+    "notes": "Dijete ne prima dvije pneumokokne sheme istodobno. Kombinaciju i raspored uvijek dogovorite s pedijatrom. Ministarstvo je najavilo da od 2027. ulazi na popis preporučenih cijepljenja; uvjeti i trošak još nisu objavljeni.",
     "keywords": ["pneumokok", "prevenar", "prevenar 20", "vaxneuvance", "pcv15", "pcv20", "upala pluca"],
     "source": "HALMED – sažetak opisa svojstava lijeka",
     "last_reviewed": "2026-10"
@@ -213,7 +233,7 @@
     "doses": "Početak u dobi od 2 do 5 mjeseci: 2 doze (razmak min. 2 mjeseca) + docjepljivanje u dobi od 12 do 15 mjeseci.",
     "description": "Štiti od invazivne meningokokne bolesti (meningitisa i sepse) uzrokovane bakterijom Neisseria meningitidis grupe B.",
     "cost_info": "Uz nadoplatu roditelja (na recept pedijatra)",
-    "notes": "Nakon cijepljenja dojenčad češće dobije temperaturu. Pitajte pedijatra treba li dati lijek za snižavanje temperature.",
+    "notes": "Nakon cijepljenja dojenčad češće dobije temperaturu. Pitajte pedijatra treba li dati lijek za snižavanje temperature. Ministarstvo je najavilo da od 2027. ulazi na popis preporučenih cijepljenja; uvjeti i trošak još nisu objavljeni.",
     "keywords": ["meningokok", "menb", "meningitis", "sepsa", "bexsero", "neisseria"],
     "source": "HALMED – sažetak opisa svojstava lijeka",
     "last_reviewed": "2026-10"
@@ -234,7 +254,7 @@
     "doses": "Najčešće 1 doza od navršenih 12 mjeseci (ranije prema preporuci pedijatra) + docjepljivanje u tinejdžerskoj dobi.",
     "description": "Nadopunjuje zaštitu od meningitisa i sepse koje uzrokuju meningokoki grupa A, C, W i Y.",
     "cost_info": "Uz nadoplatu roditelja (na recept pedijatra)",
-    "notes": "Posebno se preporučuje prije putovanja, odlaska u kolektiv (dom, kamp) i u tinejdžerskoj dobi.",
+    "notes": "Posebno se preporučuje prije putovanja, odlaska u kolektiv (dom, kamp) i u tinejdžerskoj dobi. Ministarstvo je najavilo da od 2027. ulazi na popis preporučenih cijepljenja; uvjeti i trošak još nisu objavljeni.",
     "keywords": ["meningokok", "acwy", "nimenrix", "menquadfi", "meningitis", "sepsa"],
     "source": "HALMED – sažetak opisa svojstava lijeka",
     "last_reviewed": "2026-10"
@@ -278,7 +298,7 @@
     "doses": "2 doze s razmakom od najmanje 4–6 tjedana (ovisno o cjepivu).",
     "description": "Štiti od vodenih kozica i njihovih komplikacija, poput bakterijske infekcije kože ili upale pluća.",
     "cost_info": "Uz nadoplatu roditelja (na recept pedijatra)",
-    "notes": "Postoji i kombinirano cjepivo s MPR-om (MPRV). Pitajte pedijatra je li prikladno za vaše dijete.",
+    "notes": "Postoji i kombinirano cjepivo s MPR-om (MPRV). Pitajte pedijatra je li prikladno za vaše dijete. Ministarstvo je najavilo da od 2027. ulazi na popis preporučenih cijepljenja; uvjeti i trošak još nisu objavljeni.",
     "keywords": ["vodene kozice", "kozice", "varicella", "varivax", "varilrix", "mprv", "priorix tetra"],
     "source": "HALMED – sažetak opisa svojstava lijeka",
     "last_reviewed": "2026-10"
@@ -298,7 +318,7 @@
     "doses": "1 doza godišnje. Djeca mlađa od 9 godina koja se cijepe prvi put primaju 2 doze s razmakom od 4 tjedna.",
     "description": "Smanjuje rizik od teške gripe i njezinih komplikacija, koje su najčešće u male djece.",
     "cost_info": "Besplatno za rizične skupine (npr. djeca s kroničnim bolestima). Za ostale prema dostupnosti.",
-    "notes": "Cjepivo se mijenja svake sezone, zato se cijepljenje ponavlja svake godine, idealno u listopadu ili studenom.",
+    "notes": "Cjepivo se mijenja svake sezone, zato se cijepljenje ponavlja svake godine, idealno u listopadu ili studenom. Ministarstvo je najavilo da od 2027. ulazi na popis preporučenih cijepljenja; uvjeti i trošak još nisu objavljeni.",
     "keywords": ["gripa", "influenca", "flu", "fluenz", "sezona", "nazalno", "sprej"],
     "source": "HZJZ – Program cijepljenja protiv gripe",
     "last_reviewed": "2026-10"

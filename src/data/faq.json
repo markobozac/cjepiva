@@ -10,6 +10,11 @@
     "a": "Obvezna cjepiva propisana su Programom obveznog cijepljenja, a za dijete su besplatna (pokriva ih HZZO). Preporučena ili dodatna cjepiva nisu zakonski obvezna, ali stručnjaci ih savjetuju za dodatnu zaštitu. Većinu njih roditelji plaćaju sami, a neka su besplatna, poput cjepiva protiv HPV-a."
   },
   {
+    "id": "rsv",
+    "q": "Što je nova besplatna zaštita od RSV-a?",
+    "a": "Od jeseni 2026. novorođenčad koja ulaze u svoju prvu RSV sezonu besplatno dobivaju jednu dozu dugodjelujućeg monoklonskog protutijela, koja ih štiti cijelu sezonu. RSV je najčešći uzrok bronhiolitisa i bolničkog liječenja beba u prvoj zimi. Bebe rođene u sezoni obično je dobivaju u rodilištu, a ostale na jesen. Točan termin dogovorite s pedijatrom."
+  },
+  {
     "id": "kombiniranje",
     "q": "Mogu li se dodatna cjepiva kombinirati s redovnim?",
     "a": "Uglavnom da. Mnoga dodatna cjepiva mogu se primiti na istom pregledu ili uz minimalan razmak, što određuje pedijatar. Primjerice, cjepivo protiv rotavirusa daje se kapima na usta i često na isti dan kad i redovna cjepiva."

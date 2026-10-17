@@ -1282,6 +1282,14 @@ button {
   font-size: var(--fs-sm);
   color: var(--text-muted);
 }
+.footer-official-title { margin: 0 0 0.35rem; }
+.footer-sources {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+}
 .footer-official-link {
   color: var(--primary);
   font-weight: 700;

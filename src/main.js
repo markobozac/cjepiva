@@ -324,7 +324,7 @@ const yearEl = $('#year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 const lastRevEl = $('#last-reviewed');
-if (lastRevEl) lastRevEl.textContent = 'listopad 2026. (HZJZ program)';
+if (lastRevEl) lastRevEl.textContent = 'listopad 2026. (Program 2025.–2027. i proširenje imunizacije)';
 
 // 10. Initialise
 initAnalytics($('#consent-settings'));
