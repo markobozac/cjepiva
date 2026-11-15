@@ -28,6 +28,7 @@ import {
   subscribe,
 } from '../lib/storage.js';
 import { getPalette } from './children.js';
+import { rsvStart } from '../lib/schedule.js';
 import { escapeHtml } from '../lib/utils.js';
 
 /**
@@ -38,14 +39,22 @@ export function buildAllChildDoses(birth, vaccines) {
   for (const v of vaccines) {
     if (v.schedule && v.schedule.length > 0) {
       for (const s of v.schedule) {
-        const expectedDate = birth ? applyOffset(birth, s.at) : null;
+        let expectedDate = birth ? applyOffset(birth, s.at) : null;
+        let ageGroupLabel = s.type === 'yearly' ? 'Sezonski (svake jeseni)' : offsetLabel(s.at);
+        if (s.season === 'rsv') {
+          // Only infants whose first RSV season starts on/after s.from are eligible.
+          const start = birth ? rsvStart(birth) : null;
+          if (start && s.from && start < new Date(s.from + 'T00:00:00')) continue;
+          expectedDate = start;
+          ageGroupLabel = start && +start === +birth ? 'Rođenje (RSV sezona)' : 'Prije prve RSV sezone';
+        }
         list.push({
           key: makeDoseKey(v.id, s.label),
           vaccine: v,
           doseLabel: s.label,
           hint: s.hint || '',
           at: s.at,
-          ageGroupLabel: s.type === 'yearly' ? 'Sezonski (svake jeseni)' : offsetLabel(s.at),
+          ageGroupLabel,
           expectedDate,
         });
       }
