@@ -40,8 +40,6 @@ jobs:
     env:
       HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
       HAS_PLAY: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON != '' }}
-      # Monotonic versionCode for Play; offset keeps room for manual uploads.
-      VERSION_CODE: ${{ github.run_number + 100 }}
     steps:
       - uses: actions/checkout@v5
 
@@ -61,8 +59,11 @@ jobs:
             android-app/android/app/*.gradle
             android-app/android/gradle/wrapper/gradle-wrapper.properties
 
-      - name: Version name
+      - name: Version code and name
         run: |
+          # Monotonic versionCode for Play; offset keeps room for manual uploads.
+          VERSION_CODE=$(( GITHUB_RUN_NUMBER + 100 ))
+          echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
           if [[ "$GITHUB_REF" == refs/tags/android-v* ]]; then
             echo "VERSION_NAME=${GITHUB_REF#refs/tags/android-v}" >> "$GITHUB_ENV"
           else
