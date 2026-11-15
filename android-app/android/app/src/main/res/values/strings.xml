@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Vodič za cijepljenje</string>
+    <string name="title_activity_main">Vodič za cijepljenje</string>
+    <string name="package_name">hr.cjepivavodic.app</string>
+    <string name="custom_url_scheme">hr.cjepivavodic.app</string>
+</resources>

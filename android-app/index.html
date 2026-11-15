@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Vodič za cijepljenje</title>
+    <meta
+      name="description"
+      content="Pregled obveznih i preporučenih cjepiva u Hrvatskoj, evidencija primljenih cjepiva za više djece, budući termini i česta pitanja."
+    />
+    <meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14191f" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#pregled" data-switch-tab="pregled" aria-label="Vodič za cijepljenje – Pregled cjepiva">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" width="32" height="32">
+              <path d="M16 3 5 7v8c0 7 4.6 12 11 14 6.4-2 11-7 11-14V7L16 3Z" fill="currentColor" opacity=".18" />
+              <path d="M16 3 5 7v8c0 7 4.6 12 11 14 6.4-2 11-7 11-14V7L16 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+              <path d="M16 21.5s-5-3-5-6.6A2.9 2.9 0 0 1 16 13a2.9 2.9 0 0 1 5 1.9c0 3.6-5 6.6-5 6.6Z" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="brand-text">Vodič za cijepljenje</span>
+        </a>
+
+        <nav aria-label="Glavne kartice aplikacije">
+          <ul class="nav-list" role="tablist">
+            <li role="presentation">
+              <button
+                type="button"
+                role="tab"
+                id="top-tab-pregled"
+                class="top-tab-btn is-active"
+                aria-selected="true"
+                aria-controls="panel-pregled"
+                data-switch-tab="pregled"
+              >
+                Pregled cjepiva
+              </button>
+            </li>
+            <li role="presentation">
+              <button
+                type="button"
+                role="tab"
+                id="top-tab-iskaznica"
+                class="top-tab-btn"
+                aria-selected="false"
+                aria-controls="panel-iskaznica"
+                data-switch-tab="iskaznica"
+              >
+                Primljena cjepiva
+              </button>
+            </li>
+            <li role="presentation">
+              <button
+                type="button"
+                role="tab"
+                id="top-tab-buduci"
+                class="top-tab-btn"
+                aria-selected="false"
+                aria-controls="panel-buduci"
+                data-switch-tab="buduci"
+              >
+                Budući termini
+              </button>
+            </li>
+            <li role="presentation">
+              <button
+                type="button"
+                role="tab"
+                id="top-tab-pitanja"
+                class="top-tab-btn"
+                aria-selected="false"
+                aria-controls="panel-pitanja"
+                data-switch-tab="pitanja"
+              >
+                Česta pitanja
+              </button>
+            </li>
+            <li role="presentation">
+              <button
+                type="button"
+                role="tab"
+                id="top-tab-info"
+                class="top-tab-btn"
+                aria-selected="false"
+                aria-controls="panel-info"
+                data-switch-tab="info"
+              >
+                Info
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- TAB 1: PREGLED CJEPIVA -->
+      <section
+        id="panel-pregled"
+        role="tabpanel"
+        aria-labelledby="top-tab-pregled"
+        class="tab-panel vaccines"
+        data-tab-panel="pregled"
+      >
+        <div class="container">
+          <div class="section-head">
+            <h1 id="vaccines-title" class="tab-page-title">Pregled cjepiva</h1>
+            <p class="section-sub">Filtrirajte po vrsti i dobi ili potražite bolest ili naziv cjepiva.</p>
+          </div>
+        </div>
+
+        <div class="controls" id="controls">
+          <div class="container controls-inner">
+            <div class="controls-row">
+              <div class="search" role="search">
+                <label for="search-input" class="sr-only">Pretraži cjepiva</label>
+                <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+                  <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <input
+                  type="search"
+                  id="search-input"
+                  placeholder="npr. vodene kozice, pneumokok, Rotarix…"
+                  autocomplete="off"
+                  enterkeyhint="search"
+                  spellcheck="false"
+                />
+                <button type="button" class="search-clear" id="search-clear" aria-label="Obriši pretragu" hidden>
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                    <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </button>
+              </div>
+
+              <div class="segmented" role="group" aria-label="Vrsta cjepiva" id="type-filter"></div>
+            </div>
+
+            <div class="timeline-wrap">
+              <div class="timeline" role="group" aria-label="Dob djeteta" id="age-filter"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="results-bar">
+            <p class="results-summary" id="results-summary" aria-live="polite" aria-atomic="true"></p>
+            <button type="button" class="btn-link" id="reset-filters" hidden>Poništi filtre</button>
+          </div>
+        </div>
+
+        <div class="age-callout" id="age-callout" hidden></div>
+
+        <div class="card-grid" id="card-grid"></div>
+
+        <div class="container">
+          <div class="empty-state" id="empty-state" hidden>
+            <div class="empty-icon" aria-hidden="true">🔍</div>
+            <h3>Nema rezultata</h3>
+            <p>Pokušajte s drugim pojmom ili poništite filtre. Možete potražiti, primjerice:</p>
+            <div class="suggestions" id="suggestions"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: PRIMLJENA CJEPIVA (CHECKLIST PER CHILD) -->
+      <section
+        id="panel-iskaznica"
+        role="tabpanel"
+        aria-labelledby="top-tab-iskaznica"
+        class="tab-panel tab-panel--padded"
+        data-tab-panel="iskaznica"
+        hidden
+      >
+        <div class="container">
+          <div class="section-head">
+            <h1 class="tab-page-title">Primljena cjepiva</h1>
+          </div>
+        </div>
+        <div id="checklist-root"></div>
+      </section>
+
+      <!-- TAB 3: BUDUĆI TERMINI (UPCOMING DUE DATES EXCLUDING CONFIRMED ON TAB 2) -->
+      <section
+        id="panel-buduci"
+        role="tabpanel"
+        aria-labelledby="top-tab-buduci"
+        class="tab-panel tab-panel--padded"
+        data-tab-panel="buduci"
+        hidden
+      >
+        <div class="container">
+          <div class="section-head">
+            <h1 class="tab-page-title">Budući termini cijepljenja</h1>
+          </div>
+        </div>
+        <div id="upcoming-root"></div>
+      </section>
+
+      <!-- TAB 4: ČESTA PITANJA (FAQ) -->
+      <section
+        id="panel-pitanja"
+        role="tabpanel"
+        aria-labelledby="top-tab-pitanja"
+        class="tab-panel tab-panel--padded"
+        data-tab-panel="pitanja"
+        hidden
+      >
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow">Imate pitanje?</p>
+            <h1 class="tab-page-title">Česta pitanja</h1>
+            <p class="section-sub">Kratki odgovori na pitanja koja roditelji najčešće postavljaju.</p>
+          </div>
+        </div>
+        <div class="faq-list faq-list--edge" id="faq-list"></div>
+      </section>
+
+      <!-- TAB 5: INFO (AUTHOR, WHY IT WAS STARTED & MEDICAL NOTE) -->
+      <section
+        id="panel-info"
+        role="tabpanel"
+        aria-labelledby="top-tab-info"
+        class="tab-panel tab-panel--padded"
+        data-tab-panel="info"
+        hidden
+      >
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow">O aplikaciji</p>
+            <h1 class="tab-page-title">Informacije i napomena</h1>
+            <p class="section-sub">Zašto je pokrenut Vodič za cijepljenje, tko stoji iza projekta i važna medicinska ograda.</p>
+          </div>
+        </div>
+
+        <div class="info-cards-stack info-cards-stack--edge">
+            <!-- Why it was started & Author -->
+            <article class="info-card">
+              <div class="info-card-row">
+                <span class="info-card-icon" aria-hidden="true">💡</span>
+                <div>
+                  <h2>Zašto je pokrenut ovaj projekt?</h2>
+                  <p>
+                    Roditelji novorođenčadi i male djece u Hrvatskoj često se susreću s rascjepkanim informacijama o tome koja cjepiva pokriva obvezni program (HZZO), a koja su dodatna i preporučena (poput cjepiva protiv rotavirusa s kratkim rokom primjene, meningokoka B, vodenih kozica ili krpeljnog meningoencefalitisa).
+                  </p>
+                  <p>
+                    Ova aplikacija nastala je kako bi roditelji na jednom mjestu, u nekoliko sekundi i bez suvišnog medicinskog žargona imali jasan pregled svih cjepiva, jednostavnu evidenciju primljenih doza za svako dijete te izračun budućih termina.
+                  </p>
+                </div>
+              </div>
+
+              <div class="info-author-box">
+                <div>
+                  <span class="info-label">Autor projekta</span>
+                  <strong>Marko Božac</strong>
+                </div>
+                <div>
+                  <span class="info-label">Pohrana podataka o djeci</span>
+                  <strong>100% lokalno na uređaju · Nikad ne napuštaju telefon</strong>
+                </div>
+              </div>
+            </article>
+
+            <!-- Privacy Policy & Google Analytics Consent (Play Store & GDPR compliance) -->
+            <article class="info-card">
+              <div class="info-card-row">
+                <span class="info-card-icon" aria-hidden="true">🔒</span>
+                <div>
+                  <h2>Privatnost podataka i anonimna statistika</h2>
+                  <p>
+                    Imena djece, datumi rođenja i označena primljena cjepiva spremaju se <strong>isključivo u lokalnu memoriju vašeg uređaja</strong> i nikada se ne šalju na poslužitelje niti trećim stranama.
+                  </p>
+                  <p>
+                    Za unaprjeđenje aplikacije može se koristiti anonimna statistika posjećenosti kartica (Google Analytics 4 bez oglasa i bez ikakvih osobnih podataka).
+                  </p>
+                  <div class="info-consent-row">
+                    <label class="plan-toggle info-consent-toggle" for="analytics-consent-toggle">
+                      <input type="checkbox" id="analytics-consent-toggle" checked />
+                      <span class="switch" aria-hidden="true"></span>
+                      <span>Dopusti anonimnu statistiku korištenja aplikacije</span>
+                    </label>
+                    <a href="./privacy-policy.html" class="footer-official-link">
+                      Pravila privatnosti (Privacy Policy)
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Medical Disclaimer (from footer) -->
+            <div class="disclaimer info-disclaimer" role="note" aria-labelledby="disclaimer-title">
+              <div class="disclaimer-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="28" height="28">
+                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" />
+                  <path d="M12 7.5v5.5M12 16.5v.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div>
+                <h2 id="disclaimer-title">Medicinska napomena</h2>
+                <p>
+                  Ova aplikacija služi <strong>isključivo u informativne i edukativne svrhe</strong> i ne zamjenjuje savjet niti pregled liječnika.
+                  Prije svake odluke o cijepljenju posavjetujte se sa svojim izabranim pedijatrom ili školskim liječnikom.
+                  Raspored cijepljenja i dostupnost cjepiva mogu se mijenjati.
+                </p>
+              </div>
+            </div>
+
+            <!-- Official Source & Meta -->
+            <div class="info-meta-card">
+              <p>
+                Službeni izvor i provedbeni program:
+                <a
+                  href="https://www.hzjz.hr/sluzba-epidemiologija-zarazne-bolesti/odjel-za-cijepljenje/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="footer-official-link"
+                >
+                  Nacionalni program cijepljenja (HZZO / HZJZ)
+                  <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </p>
+              <p class="info-meta-sub">
+                © <span id="year"></span> Vodič za cijepljenje · Zadnja provjera sadržaja: <span id="last-reviewed">listopad 2026. (HZJZ program)</span>
+              </p>
+            </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ANDROID 5-TAB BOTTOM NAVIGATION BAR -->
+    <nav class="android-bottom-nav" aria-label="Mobilna navigacija">
+      <ul class="android-bottom-nav-list android-bottom-nav-list--5">
+        <li>
+          <button type="button" class="android-bottom-link is-active" data-switch-tab="pregled">
+            <span class="android-bottom-icon" aria-hidden="true">🛡️</span>
+            <span>Cjepiva</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="android-bottom-link" data-switch-tab="iskaznica">
+            <span class="android-bottom-icon" aria-hidden="true">☑️</span>
+            <span>Primljena</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="android-bottom-link" data-switch-tab="buduci">
+            <span class="android-bottom-icon" aria-hidden="true">📅</span>
+            <span>Budući</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="android-bottom-link" data-switch-tab="pitanja">
+            <span class="android-bottom-icon" aria-hidden="true">❓</span>
+            <span>Pitanja</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="android-bottom-link" data-switch-tab="info">
+            <span class="android-bottom-icon" aria-hidden="true">ℹ️</span>
+            <span>Info</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- DIALOG: ADD / EDIT CHILD PROFILE (closedby="any") -->
+    <dialog id="child-profile-dialog" class="app-dialog" closedby="any" aria-labelledby="child-dialog-title">
+      <form id="child-profile-form" class="dialog-inner" novalidate>
+        <div class="dialog-head">
+          <h3 id="child-dialog-title">Dodaj dijete</h3>
+          <button type="button" class="dialog-close-btn" data-close-child-dialog aria-label="Zatvori">✕</button>
+        </div>
+        <input type="hidden" id="child-modal-id" />
+
+        <div class="form-group">
+          <label for="child-modal-name" class="form-label">Ime djeteta <span class="required">*</span></label>
+          <span id="modal-name-hint" class="field-hint">Možete dodati više djece i prebacivati se između njih</span>
+          <input
+            type="text"
+            id="child-modal-name"
+            class="form-input"
+            required
+            maxlength="40"
+            placeholder="npr. Luka ili Mia"
+            aria-describedby="modal-name-hint"
+            aria-errormessage="modal-name-err"
+          />
+          <div id="modal-name-err" class="error-msg">Unesite ime djeteta.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="child-modal-birth" class="form-label">Datum rođenja djeteta <span class="required">*</span></label>
+          <span id="modal-birth-hint" class="field-hint">Potrebno za izračun datuma cijepljenja</span>
+          <input
+            type="date"
+            id="child-modal-birth"
+            class="form-input"
+            required
+            aria-describedby="modal-birth-hint"
+            aria-errormessage="modal-birth-err"
+          />
+          <div id="modal-birth-err" class="error-msg">Unesite ispravan datum rođenja.</div>
+        </div>
+
+        <div class="dialog-actions">
+          <button type="button" class="btn btn-sm btn-danger-ghost" id="child-modal-delete" hidden>Obriši dijete</button>
+          <button type="button" class="btn btn-sm btn-ghost" data-close-child-dialog>Odustani</button>
+          <button type="submit" class="btn btn-sm btn-primary">Spremi dijete</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

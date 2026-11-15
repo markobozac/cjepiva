@@ -1,0 +1,128 @@
+name: Android build & Play upload
+
+# - Push/PR touching android-app/  -> builds the .aab (signed if the keystore secrets exist) as a workflow artifact.
+# - Tag android-vX.Y.Z            -> signed release build + upload to Google Play (internal track)
+#                                    once PLAY_SERVICE_ACCOUNT_JSON is set.
+# - Manual run (Actions tab)       -> same as a tag, with a choice of Play track.
+
+on:
+  push:
+    branches: [main]
+    tags: ['android-v*']
+    paths: ['android-app/**', '.github/workflows/android.yml']
+  pull_request:
+    paths: ['android-app/**', '.github/workflows/android.yml']
+  workflow_dispatch:
+    inputs:
+      track:
+        description: Google Play track
+        type: choice
+        options: [internal, alpha, beta, production]
+        default: internal
+      upload:
+        description: Upload to Google Play
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: android-app
+    env:
+      HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+      HAS_PLAY: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON != '' }}
+      # Monotonic versionCode for Play; offset keeps room for manual uploads.
+      VERSION_CODE: ${{ github.run_number + 100 }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: android-app/package-lock.json
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+          cache-dependency-path: |
+            android-app/android/*.gradle
+            android-app/android/app/*.gradle
+            android-app/android/gradle/wrapper/gradle-wrapper.properties
+
+      - name: Version name
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/android-v* ]]; then
+            echo "VERSION_NAME=${GITHUB_REF#refs/tags/android-v}" >> "$GITHUB_ENV"
+          else
+            echo "VERSION_NAME=1.0.0-dev.${VERSION_CODE}" >> "$GITHUB_ENV"
+          fi
+
+      - run: npm ci
+
+      - name: Build web app and sync into Android project
+        run: |
+          npm run build
+          npx cap sync android
+
+      - name: Restore upload keystore
+        if: env.HAS_KEYSTORE == 'true'
+        working-directory: android-app/android
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 -d > upload.jks
+          {
+            echo "storeFile=../upload.jks"
+            echo "storePassword=$KEYSTORE_PASSWORD"
+            echo "keyAlias=$KEY_ALIAS"
+            echo "keyPassword=$KEYSTORE_PASSWORD"
+          } > keystore.properties
+
+      - name: Build release bundle (.aab)
+        working-directory: android-app/android
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon bundleRelease
+          echo "Built versionName=$VERSION_NAME versionCode=$VERSION_CODE (signed: $HAS_KEYSTORE)"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cjepiva-${{ env.VERSION_NAME }}-${{ env.VERSION_CODE }}
+          path: |
+            android-app/android/app/build/outputs/bundle/release/*.aab
+            android-app/android/app/build/outputs/mapping/release/mapping.txt
+          if-no-files-found: error
+
+      - name: Upload to Google Play
+        if: >-
+          env.HAS_PLAY == 'true' && env.HAS_KEYSTORE == 'true' &&
+          (startsWith(github.ref, 'refs/tags/android-v') || inputs.upload)
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: hr.cjepivavodic.app
+          releaseFiles: android-app/android/app/build/outputs/bundle/release/app-release.aab
+          mappingFile: android-app/android/app/build/outputs/mapping/release/mapping.txt
+          track: ${{ inputs.track || 'internal' }}
+          # Play only accepts "draft" until the app has been reviewed once.
+          # Set the repo variable PLAY_RELEASE_STATUS=completed after the first approval.
+          status: ${{ vars.PLAY_RELEASE_STATUS || 'draft' }}
+
+      - name: Clean up signing material
+        if: always()
+        working-directory: android-app/android
+        run: rm -f upload.jks keystore.properties

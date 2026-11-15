@@ -1,0 +1,32 @@
+[
+  {
+    "id": "propusten-termin",
+    "q": "Što učiniti ako se propusti termin cijepljenja?",
+    "a": "Ne brinite, cijepljenje se ne mora ponavljati ispočetka. Javite se pedijatru čim prije, pa će dogovoriti nadoknadu propuštene doze i nastavak sheme. Kod nekih cjepiva (npr. protiv rotavirusa) postoji gornja dobna granica, pa je kod njih važno ne čekati predugo."
+  },
+  {
+    "id": "razlika",
+    "q": "Koja je razlika između obveznog i preporučenog cjepiva?",
+    "a": "Obvezna cjepiva propisana su Programom obveznog cijepljenja, a za dijete su besplatna (pokriva ih HZZO). Preporučena ili dodatna cjepiva nisu zakonski obvezna, ali stručnjaci ih savjetuju za dodatnu zaštitu. Većinu njih roditelji plaćaju sami, a neka su besplatna, poput cjepiva protiv HPV-a."
+  },
+  {
+    "id": "kombiniranje",
+    "q": "Mogu li se dodatna cjepiva kombinirati s redovnim?",
+    "a": "Uglavnom da. Mnoga dodatna cjepiva mogu se primiti na istom pregledu ili uz minimalan razmak, što određuje pedijatar. Primjerice, cjepivo protiv rotavirusa daje se kapima na usta i često na isti dan kad i redovna cjepiva."
+  },
+  {
+    "id": "temperatura",
+    "q": "Što ako dijete ima temperaturu na dan cijepljenja?",
+    "a": "Kod blage prehlade bez temperature cijepljenje se najčešće može provesti. Ako dijete ima povišenu temperaturu ili je akutno bolesno, pedijatar će obično odgoditi cijepljenje dok se ne oporavi."
+  },
+  {
+    "id": "nuspojave",
+    "q": "Koje su uobičajene reakcije nakon cijepljenja?",
+    "a": "Najčešće su crvenilo ili oteklina na mjestu uboda, blago povišena temperatura i razdražljivost tijekom jednog do dva dana. Ako primijetite nešto neuobičajeno ili ste zabrinuti, javite se pedijatru."
+  },
+  {
+    "id": "cjepni-status",
+    "q": "Gdje mogu provjeriti cjepni status svog djeteta?",
+    "a": "Podaci o cijepljenju upisuju se u cjepnu iskaznicu i zdravstveni karton djeteta kod pedijatra. Pedijatar ili školski liječnik uvijek vam može reći koja cjepiva je dijete primilo i što slijedi."
+  }
+]

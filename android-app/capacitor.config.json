@@ -1,0 +1,8 @@
+{
+  "appId": "hr.cjepivavodic.app",
+  "appName": "Vodič za cijepljenje",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

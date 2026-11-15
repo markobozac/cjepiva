@@ -1,0 +1,1092 @@
+/* ==========================================================================
+   Simplified 3-Tab Android & Web App Styles
+   - Tab 1: Pregled cjepiva (starts immediately without Hero/Legend)
+   - Tab 2: Primljena cjepiva (Multi-child Checklist with Date + Optional Note)
+   - Tab 3: Budući termini (Remaining due dates, excluding confirmed items)
+   ========================================================================== */
+
+body {
+  padding-bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+}
+
+.tab-panel[hidden] {
+  display: none !important;
+}
+
+.tab-panel--padded {
+  padding-block: clamp(1.5rem, 3.5vw, 2.75rem);
+}
+
+.tab-page-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  margin: 0 0 0.25rem;
+}
+
+/* ---------- Top Tab Buttons ---------- */
+.top-tab-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+
+.top-tab-btn:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.top-tab-btn.is-active {
+  background: var(--primary-soft);
+  color: var(--primary-strong);
+}
+
+@media (max-width: 720px) {
+  .site-header nav {
+    display: none;
+  }
+}
+
+/* ---------- Modern Form Validation (:user-invalid / :user-valid) ---------- */
+.field-hint {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  margin-bottom: 0.25rem;
+}
+
+.error-msg {
+  display: none;
+  color: var(--dodatno);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  margin-top: 0.25rem;
+}
+
+input:user-invalid,
+input.user-invalid-fallback {
+  border-color: var(--dodatno);
+  background-color: var(--dodatno-soft);
+}
+
+input:user-invalid + .error-msg,
+input.user-invalid-fallback + .error-msg {
+  display: block;
+}
+
+input:user-valid,
+input.user-valid-fallback {
+  border-color: var(--obvezno-line);
+}
+
+/* ---------- Multi-Child Selector Bar & Empty Prompt (Tabs 2 & 3) ---------- */
+.child-switcher-inline {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.child-pills-scroll {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+.child-pills-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.child-pill-group {
+  display: inline-flex;
+  align-items: center;
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 0.24rem 0.5rem 0.24rem 0.3rem;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+
+.child-pill-group.is-active {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+.child-pill-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  background: transparent;
+  padding: 0.15rem 0.45rem 0.15rem 0.15rem;
+  cursor: pointer;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+}
+
+.child-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.child-pill-text strong {
+  display: block;
+  font-size: 0.92rem;
+  line-height: 1.15;
+}
+
+.child-pill-text small {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.child-pill-edit {
+  border: none;
+  background: var(--surface);
+  color: var(--text-muted);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 0.15rem;
+}
+
+.child-pill-edit:hover {
+  color: var(--primary);
+}
+
+.child-pill-add {
+  border: 1.5px dashed var(--primary);
+  background: transparent;
+  color: var(--primary);
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.child-pill-add:hover {
+  background: var(--primary-soft);
+}
+
+.empty-child-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 5vw, 3rem) 1.5rem;
+  text-align: center;
+  max-width: 580px;
+  margin: 1rem auto;
+  box-shadow: var(--shadow-sm);
+}
+
+.empty-child-icon {
+  font-size: 2.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-child-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: var(--fs-lg);
+}
+
+.empty-child-card p {
+  margin: 0 auto 0.75rem;
+  color: var(--text-muted);
+  max-width: 48ch;
+}
+
+.empty-child-note {
+  font-size: var(--fs-xs);
+  margin-bottom: 1.35rem !important;
+}
+
+/* ---------- Tab 2: Checklist (Primljena cjepiva) ---------- */
+.booklet-summary-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.booklet-summary-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.booklet-summary-top h3 {
+  margin: 0.35rem 0 0.2rem;
+  font-size: var(--fs-lg);
+}
+
+.booklet-summary-sub {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  max-width: 65ch;
+}
+
+.booklet-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip.is-active {
+  background: var(--primary-strong);
+  border-color: var(--primary-strong);
+  color: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.segmented-btn.is-active {
+  background: var(--primary-soft);
+  color: var(--primary-strong);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--primary) 45%, transparent);
+}
+
+.booklet-progress-bar {
+  width: 100%;
+  height: 10px;
+  background: var(--border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.booklet-progress-fill {
+  height: 100%;
+  background: var(--obvezno);
+  border-radius: var(--radius-pill);
+  transition: width 0.35s var(--ease);
+}
+
+.chk-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.chk-row {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.chk-row.is-completed {
+  background: color-mix(in srgb, var(--obvezno-soft) 45%, var(--surface));
+  border-color: var(--obvezno-line);
+}
+
+.chk-row-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
+.chk-toggle-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 0.15rem;
+}
+
+.chk-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.chk-custom-box {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s;
+}
+
+.chk-checkbox:checked + .chk-custom-box {
+  background: var(--obvezno);
+  border-color: var(--obvezno);
+  color: #fff;
+}
+
+.chk-checkbox:focus-visible + .chk-custom-box {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.chk-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.chk-title-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.2rem;
+}
+
+.chk-vax-name {
+  font-size: var(--fs-base);
+}
+
+.chk-dose-pill {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--primary-strong);
+  background: var(--primary-soft);
+  padding: 0.12rem 0.55rem;
+  border-radius: var(--radius-pill);
+}
+
+.chk-sub {
+  margin: 0;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.chk-status-tag {
+  flex-shrink: 0;
+}
+
+@media (max-width: 560px) {
+  .chk-status-tag {
+    display: none;
+  }
+}
+
+.chk-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border);
+}
+
+@media (min-width: 600px) {
+  .chk-fields {
+    grid-template-columns: minmax(210px, 260px);
+    align-items: end;
+  }
+}
+
+.chk-field-group {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.chk-field-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.chk-field-label .optional {
+  font-weight: 400;
+}
+
+.chk-input-date,
+.chk-input-note {
+  min-height: 40px;
+  padding: 0.4rem 0.75rem;
+  font-size: var(--fs-sm);
+}
+
+.chk-empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.pill--completed {
+  background: var(--obvezno-soft);
+  color: var(--obvezno);
+  border: 1px solid var(--obvezno-line);
+}
+
+/* ---------- Tab 3: Upcoming Due Dates (Budući termini) ---------- */
+.upcoming-header-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.4rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.upcoming-header-card .plan-header {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.plan-dose-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.pill-btn {
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform 0.15s, background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.pill-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--primary);
+}
+
+.plan-item.is-confirmed-card .plan-body {
+  background: color-mix(in srgb, var(--obvezno-soft) 45%, var(--surface));
+  border-color: var(--obvezno-line);
+}
+
+.plan-gcal--icon {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+#upcoming-root .plan-timeline::before {
+  display: none;
+}
+
+.plan-year-section {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.plan-year-section + .plan-year-section {
+  margin-top: 0.65rem;
+}
+
+.plan-year-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.plan-year-banner-num {
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.02em;
+}
+
+.plan-year-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.plan-item--grouped {
+  display: block;
+}
+
+/* ---------- Tab 4: FAQ Edge-to-Edge Sections ---------- */
+#panel-pitanja .faq-inner {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+  grid-template-columns: 1fr;
+}
+
+#panel-pitanja .section-head {
+  width: min(100% - clamp(1rem, 4vw, 2.5rem), var(--container));
+  margin-inline: auto;
+}
+
+.faq-list--edge,
+#panel-pitanja .faq-list {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+
+.faq-list--edge .faq-item,
+#panel-pitanja .faq-item {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+}
+
+.faq-list--edge .faq-item[open],
+#panel-pitanja .faq-item[open] {
+  background: var(--surface-2);
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+.faq-list--edge .faq-item summary,
+#panel-pitanja .faq-item summary {
+  border-radius: 0;
+}
+
+/* ---------- Light-Dismiss Modal (<dialog closedby="any">) ---------- */
+.app-dialog {
+  width: min(92vw, 480px);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--text);
+  padding: 0;
+  box-shadow: var(--shadow-lg);
+}
+
+.app-dialog::backdrop {
+  background-color: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.dialog-inner {
+  padding: 1.4rem 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.dialog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.dialog-head h3 {
+  margin: 0;
+  font-size: var(--fs-lg);
+}
+
+.dialog-close-btn {
+  border: none;
+  background: var(--surface-2);
+  color: var(--text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.btn-danger-ghost {
+  border: 1px solid var(--dodatno-line);
+  background: var(--dodatno-soft);
+  color: var(--dodatno);
+  margin-right: auto;
+}
+
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.color-swatch-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.65rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: var(--fs-xs);
+}
+
+/* ---------- Tab 5: Info & Medical Note (Edge-to-Edge Sections) ---------- */
+#panel-info .info-tab-container {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
+
+#panel-info .section-head {
+  width: min(100% - clamp(1rem, 4vw, 2.5rem), var(--container));
+  margin-inline: auto;
+}
+
+.info-cards-stack {
+  display: grid;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+
+.info-card {
+  background: var(--surface);
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  box-shadow: none;
+}
+
+.info-card-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.info-card-icon {
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+
+.info-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: var(--fs-lg);
+}
+
+.info-card p {
+  margin: 0 0 0.75rem;
+  color: var(--text-muted);
+}
+
+.info-card p:last-child {
+  margin-bottom: 0;
+}
+
+.info-author-box {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border);
+}
+
+@media (min-width: 540px) {
+  .info-author-box {
+    grid-template-columns: 1fr 1.4fr;
+  }
+}
+
+.info-label {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  margin-bottom: 0.1rem;
+}
+
+.info-disclaimer {
+  margin-bottom: 0;
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--dodatno-line);
+  box-shadow: none;
+}
+
+.info-meta-card {
+  background: var(--surface);
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: 1.25rem clamp(1.25rem, 3vw, 1.75rem);
+  box-shadow: none;
+  font-size: var(--fs-sm);
+}
+
+.info-meta-card p {
+  margin: 0;
+}
+
+.info-meta-sub {
+  margin-top: 0.45rem !important;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+/* ---------- Android 5-Tab Bottom Navigation Bar ---------- */
+.android-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -4px 16px hsl(215 30% 15% / 0.08);
+}
+
+.android-bottom-nav-list--5 {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0.3rem 0.4rem;
+  max-width: 680px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.2rem;
+}
+
+.android-bottom-link {
+  width: 100%;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  padding: 0.35rem 0.2rem;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.android-bottom-link.is-active,
+.android-bottom-link:hover {
+  color: var(--primary-strong);
+  background: var(--primary-soft);
+}
+
+.android-bottom-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Unified Edge-to-Edge Flat Sections Across Tabs 1, 2 & 3
+   ========================================================================== */
+
+/* Allow dynamic roots to break out even if inside a cached .container */
+#panel-iskaznica > .container,
+#panel-buduci > .container {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
+
+#panel-iskaznica .section-head,
+#panel-buduci .section-head {
+  width: min(100% - clamp(1rem, 4vw, 2.5rem), var(--container));
+  margin-inline: auto;
+}
+
+/* Tab 1: Pregled cjepiva edge-to-edge sections */
+#panel-pregled .age-callout {
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+#panel-pregled .card-grid {
+  width: 100%;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border);
+}
+
+#panel-pregled .card {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+}
+
+#panel-pregled .card:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--border);
+}
+
+#panel-pregled .card-facts,
+#panel-pregled .card-note,
+#panel-pregled .card-toggle-btn {
+  border-radius: 0;
+}
+
+/* Tab 2 & 3 shared: Child switcher & empty child prompt */
+.child-switcher-inline {
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+.empty-child-card {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+}
+
+/* Tab 2: Primljena cjepiva edge-to-edge sections */
+.booklet-summary-card {
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+.chk-list {
+  gap: 0;
+}
+
+.chk-vax-group + .chk-vax-group {
+  margin-top: 1.1rem;
+}
+
+.chk-vax-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 1.2rem;
+  background: var(--primary-soft);
+  border-top: 2px solid color-mix(in srgb, var(--primary) 32%, var(--border));
+  border-bottom: 1.5px solid color-mix(in srgb, var(--primary) 32%, var(--border));
+}
+
+.chk-vax-header-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.chk-vax-header-title strong {
+  font-family: var(--font-display);
+  font-size: var(--fs-base);
+  color: var(--primary-strong);
+}
+
+.chk-vax-header-sub {
+  margin: 0.1rem 0 0;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.chk-vax-progress {
+  flex-shrink: 0;
+  font-size: var(--fs-xs);
+  font-weight: 800;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--primary-strong);
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, var(--border));
+}
+
+.chk-vax-progress.is-all-done {
+  background: var(--obvezno-soft);
+  color: var(--obvezno);
+  border-color: var(--obvezno-line);
+}
+
+.chk-dose-sublist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chk-row,
+.chk-empty {
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+}
+
+/* Tab 3: Budući termini edge-to-edge sections */
+.upcoming-header-card {
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+#upcoming-root .plan-next {
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--primary);
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+#upcoming-root .plan-timeline,
+.plan-year-section,
+.plan-year-list {
+  gap: 0;
+  margin: 0;
+}
+
+.plan-year-section + .plan-year-section {
+  margin-top: 1.15rem;
+}
+
+.plan-year-banner {
+  background: var(--primary-soft);
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 2px solid color-mix(in srgb, var(--primary) 32%, var(--border));
+  border-bottom: 1.5px solid color-mix(in srgb, var(--primary) 32%, var(--border));
+  box-shadow: none;
+  padding: 0.5rem 1.25rem;
+}
+
+.plan-year-banner-num {
+  color: var(--primary-strong);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+#upcoming-root .plan-item--past {
+  opacity: 1;
+}
+
+#upcoming-root .plan-body,
+#upcoming-root .plan-none {
+  background: var(--surface);
+  border-radius: 0;
+  border-inline: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--border);
+  box-shadow: none;
+}
+
+.info-consent-row {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.info-consent-toggle {
+  margin-bottom: 0;
+  color: var(--text);
+}
+
+
+#upcoming-root .plan-item.is-next .plan-body {
+  box-shadow: none;
+  border-inline: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---------- Android 15+/16 edge-to-edge (target SDK 36) ----------
+   The WebView draws behind the status bar; keep content clear of it and
+   paint the status-bar strip so scrolled content never shows through. */
+body {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--bg);
+  z-index: 1000;
+  pointer-events: none;
+}
+.controls {
+  top: env(safe-area-inset-top, 0px);
+}
