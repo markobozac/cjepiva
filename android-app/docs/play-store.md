@@ -18,6 +18,14 @@ Paket: `hr.cjepivavodic.app` · Target SDK 36 (Capacitor 8) · Kontakt: marko@ma
    - Sadržaj JSON-a spremi kao GitHub secret `PLAY_SERVICE_ACCOUNT_JSON`.
    - Kad Google prvi put odobri aplikaciju, dodaj repo **variable** `PLAY_RELEASE_STATUS=completed` (do tada upload ide kao *draft*).
 
+## Cijena: plaćena aplikacija (2 €)
+
+- Aplikacija se kreira kao **Paid** od prvog dana. Besplatna aplikacija se kasnije **ne može** pretvoriti u plaćenu (obrnuto može).
+- Cijena: **1,99 €** (EU cijene na Playu uključuju PDV). Približan neto po prodaji u HR: 1,99 € − 25 % PDV-a ≈ 1,59 € − 15 % naknade Googlea ≈ **1,35 €**.
+- Preduvjeti: **payments profile** u Play Consoleu (bankovni račun, porezni podaci) i deklaracija **trader statusa = trader** (prodaja). Kao trader, ime, adresa, e-mail i telefon prikazuju se javno na stranici aplikacije.
+- Zatvoreno testiranje plaćene aplikacije: testeri je **moraju kupiti** (besplatno je samo interno testiranje, koje se ne broji u 12/14). Rješenje: promo kodovi (Play Console → Promotions) ili povrat novca nakon kupnje.
+- Prihod od prodaje oporezuje se u Hrvatskoj – provjeri s računovođom (obrt ili drugi dohodak).
+
 ## 2. Izdavanje nove verzije
 
 ```bash
@@ -63,6 +71,7 @@ CI builda potpisani `.aab` (versionCode = broj builda + 100, versionName iz taga
 |---|---|
 | Privacy policy | URL iz gornjeg odjeljka |
 | Ads | Ne sadrži oglase |
+| Pricing | Paid, 1,99 € |
 | App access | Sve funkcije dostupne bez prijave |
 | Target audience | 18+ (roditelji). **Nije** namijenjena djeci – izbjegava Families policy |
 | Content rating (IARC) | Kategorija *Reference, News or Educational*; sve odgovore „Ne“ → očekivano PEGI 3 / Everyone |
