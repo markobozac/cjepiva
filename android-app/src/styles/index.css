@@ -10,7 +10,7 @@
 
   /* Typography */
   --font-sans: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-display: "Fraunces Variable", "Fraunces", Georgia, "Times New Roman", serif;
   --fs-xs: clamp(0.8rem, 0.78rem + 0.1vw, 0.85rem);
   --fs-sm: clamp(0.92rem, 0.9rem + 0.1vw, 0.97rem);
   --fs-base: clamp(1.06rem, 1.02rem + 0.2vw, 1.125rem);

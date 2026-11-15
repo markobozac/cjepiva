@@ -6,6 +6,15 @@
  * - Tab 4 ("pitanja"): Česta pitanja (FAQ)
  * - Tab 5 ("info"): Info (Author, why it was started, medical disclaimer & official HZJZ source)
  */
+import './styles/fonts.css';
+import '@fontsource/nunito/latin-400.css';
+import '@fontsource/nunito/latin-ext-400.css';
+import '@fontsource/nunito/latin-600.css';
+import '@fontsource/nunito/latin-ext-600.css';
+import '@fontsource/nunito/latin-700.css';
+import '@fontsource/nunito/latin-ext-700.css';
+import '@fontsource/nunito/latin-800.css';
+import '@fontsource/nunito/latin-ext-800.css';
 import './styles/index.css';
 import './styles/calculator.css';
 import './styles/app-features.css';
@@ -27,13 +36,15 @@ import { renderFaq } from './components/faq.js';
 import {
   initAnalytics,
   isAnalyticsEnabled,
+  isAnalyticsConfigured,
+  hasConsentDecision,
   setAnalyticsEnabled,
   trackEvent,
 } from './lib/analytics.js';
 
 const VALID_TABS = ['pregled', 'iskaznica', 'buduci', 'pitanja', 'info'];
 
-// Initialize privacy-safe Google Analytics 4 (Consent Mode v2)
+// Google Analytics 4 loads only after the user's consent (opt-in)
 initAnalytics();
 
 // Initialize form validation interaction tracking (:user-invalid fallback)
@@ -302,6 +313,31 @@ if (analyticsToggle) {
   analyticsToggle.addEventListener('change', () => {
     setAnalyticsEnabled(analyticsToggle.checked);
   });
+}
+
+// One-time consent prompt on first launch (opt-in, GDPR). Answer can be changed in Info.
+if (isAnalyticsConfigured() && !hasConsentDecision()) {
+  const banner = document.createElement('div');
+  banner.className = 'consent-banner';
+  banner.setAttribute('role', 'dialog');
+  banner.setAttribute('aria-live', 'polite');
+  banner.setAttribute('aria-label', 'Anonimna statistika korištenja');
+  banner.innerHTML = `
+    <p>Smijemo li bilježiti anonimnu statistiku korištenja (Google Analytics, bez oglasa)?
+    Podaci o djeci nikada ne napuštaju uređaj. <a href="./privacy-policy.html">Više</a></p>
+    <div class="consent-banner-actions">
+      <button type="button" class="consent-btn consent-btn--ghost" data-consent="false">Ne, hvala</button>
+      <button type="button" class="consent-btn" data-consent="true">Prihvaćam</button>
+    </div>`;
+  banner.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-consent]');
+    if (!btn) return;
+    const granted = btn.dataset.consent === 'true';
+    setAnalyticsEnabled(granted);
+    if (analyticsToggle) analyticsToggle.checked = granted;
+    banner.remove();
+  });
+  document.body.appendChild(banner);
 }
 
 // 8. Initialise

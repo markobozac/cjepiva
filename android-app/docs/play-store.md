@@ -73,15 +73,15 @@ CI builda potpisani `.aab` (versionCode = broj builda + 100, versionName iz taga
 
 ### Data safety
 
-- **Prikuplja li aplikacija podatke?** Da (samo Google Analytics 4).
-- **App activity → App interactions**: prikuplja se, nije dijeljeno, svrha *Analytics*, obrada nije obavezna (korisnik može isključiti u kartici Info).
+- **Prikuplja li aplikacija podatke?** Da, samo Google Analytics 4 (stream *Cjepiva Android app*, `G-45TBDCX4KY`) i samo nakon pristanka korisnika.
+- **App activity → App interactions**: prikuplja se, nije dijeljeno, svrha *Analytics*, nije obavezno: uključuje se tek nakon pristanka pri prvom pokretanju, a može se isključiti u kartici Info.
 - **Device or other IDs**: prikuplja se (GA instance ID), svrha *Analytics*, nije obavezno.
 - Podaci o djeci (ime, datum rođenja, doze) **ostaju na uređaju** → ne prijavljuju se kao prikupljeni.
 - Podaci su šifrirani u prijenosu: Da.
 - Korisnik može zatražiti brisanje: Da – brisanjem podataka aplikacije; za analitiku e-mailom.
 
-## 5. Otvoreno prije objave
+## 5. Napomene
 
-- **Privola za analitiku**: Android verzija šalje GA statistiku *dok je korisnik ne isključi* (opt-out), a web verzija tek *nakon privole* (opt-in). Za korisnike u EU sigurnije je opt-in, kao na webu.
 - Podaci o cjepivima (`src/data/vaccines.json`, `faq.json`) preuzeti su s web verzije (program 2025.–2027. + RSV). Kad mijenjaš sadržaj, mijenjaj ga na oba mjesta ili ih spoji u jedan izvor.
+- Analitika je opt-in kao na webu: prije pristanka aplikacija ne šalje ništa (fontovi su lokalni, GA se ne učitava).
 - Testiraj na stvarnom uređaju s Androidom 15/16 (edge-to-edge: status i navigacijska traka).

@@ -1,25 +1,77 @@
 /**
- * Privacy-first Google Analytics 4 (GA4) module with GDPR Consent Mode v2.
+ * Privacy-first Google Analytics 4 (GA4) with opt-in consent (GDPR / ePrivacy).
  *
- * - Never collects or transmits personal data (child names, birthdates, or personal vaccination records).
- * - Disables all advertising features (ad_storage, ad_user_data, ad_personalization = 'denied').
- * - Respects the user's opt-in/opt-out toggle in the Info tab (`cjepiva_analytics_consent_v1`).
- * - Set `VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX` in `.env` to activate sending events to GA4.
+ * - Nothing is loaded and nothing is sent until the user agrees (consent prompt
+ *   on first launch, or the toggle in the Info tab). Same rule as the web version.
+ * - Never collects child names, birth dates or vaccination records.
+ * - Advertising signals (ad_storage, ad_user_data, ad_personalization) always denied.
+ * - Measurement ID comes from VITE_GA_MEASUREMENT_ID in `.env`. Empty → analytics off.
  */
 
-const CONSENT_STORAGE_KEY = 'cjepiva_analytics_consent_v1';
+const CONSENT_STORAGE_KEY = 'cjepiva_analytics_consent_v1'; // 'true' | 'false' | absent
 const GA_MEASUREMENT_ID = (import.meta.env?.VITE_GA_MEASUREMENT_ID || '').trim();
 
-let initialized = false;
+let loaded = false;
 
-export function isAnalyticsEnabled() {
+function readConsent() {
   try {
-    const raw = localStorage.getItem(CONSENT_STORAGE_KEY);
-    if (raw === null) return true; // Enabled by default for anonymous app statistics, user can opt out anytime
-    return raw === 'true';
+    return localStorage.getItem(CONSENT_STORAGE_KEY);
   } catch {
-    return false;
+    return null;
   }
+}
+
+/** True once the user has answered the consent prompt (either way). */
+export function hasConsentDecision() {
+  return readConsent() !== null;
+}
+
+/** Analytics is on only after explicit consent. */
+export function isAnalyticsEnabled() {
+  return readConsent() === 'true';
+}
+
+/** Whether a Measurement ID is configured (no ID → never ask for consent). */
+export function isAnalyticsConfigured() {
+  return Boolean(GA_MEASUREMENT_ID);
+}
+
+function gtag() {
+  // eslint-disable-next-line prefer-rest-params
+  window.dataLayer.push(arguments);
+}
+
+function loadGa() {
+  if (loaded || !GA_MEASUREMENT_ID || typeof window === 'undefined') return;
+  loaded = true;
+
+  if (window.gtag) {
+    // Re-enabled after a withdrawal during the same session.
+    window[`ga-disable-${GA_MEASUREMENT_ID}`] = false;
+    window.gtag('consent', 'update', { analytics_storage: 'granted' });
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = gtag;
+
+  gtag('consent', 'default', {
+    analytics_storage: 'granted',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+  });
+  gtag('js', new Date());
+  gtag('config', GA_MEASUREMENT_ID, {
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+    send_page_view: false,
+  });
+
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_MEASUREMENT_ID)}`;
+  document.head.appendChild(script);
 }
 
 export function setAnalyticsEnabled(enabled) {
@@ -30,61 +82,25 @@ export function setAnalyticsEnabled(enabled) {
     // ignore storage errors
   }
 
-  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-    window.gtag('consent', 'update', {
-      analytics_storage: flag ? 'granted' : 'denied',
-    });
-  }
-
-  if (flag && !initialized) {
-    initAnalytics();
+  if (flag) {
+    loadGa();
+  } else if (loaded) {
+    window.gtag('consent', 'update', { analytics_storage: 'denied' });
+    window[`ga-disable-${GA_MEASUREMENT_ID}`] = true;
+    loaded = false;
   }
 }
 
+/** Call once at startup: loads GA only if the user already consented. */
 export function initAnalytics() {
-  if (typeof window === 'undefined') return;
-
-  const consentGranted = isAnalyticsEnabled();
-
-  window.dataLayer = window.dataLayer || [];
-  window.gtag =
-    window.gtag ||
-    function gtag() {
-      window.dataLayer.push(arguments);
-    };
-
-  // Configure Google Consent Mode v2 (strictly no ads / remarketing)
-  window.gtag('consent', 'default', {
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    analytics_storage: consentGranted ? 'granted' : 'denied',
-  });
-
-  if (!GA_MEASUREMENT_ID || initialized) return;
-  initialized = true;
-
-  const script = document.createElement('script');
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_MEASUREMENT_ID)}`;
-  document.head.appendChild(script);
-
-  window.gtag('js', new Date());
-  window.gtag('config', GA_MEASUREMENT_ID, {
-    anonymize_ip: true,
-    allow_google_signals: false,
-    allow_ad_personalization_signals: false,
-    send_page_view: false,
-  });
+  if (isAnalyticsEnabled()) loadGa();
 }
 
 /**
- * Tracks an anonymous UI event (only if consent is enabled).
+ * Tracks an anonymous UI event (only with consent).
  * Never pass child names, birthdates, or health status into `params`.
  */
 export function trackEvent(eventName, params = {}) {
-  if (!isAnalyticsEnabled()) return;
-  if (typeof window !== 'undefined' && typeof window.gtag === 'function' && GA_MEASUREMENT_ID) {
-    window.gtag('event', eventName, params);
-  }
+  if (!loaded || typeof window.gtag !== 'function') return;
+  window.gtag('event', eventName, params);
 }
